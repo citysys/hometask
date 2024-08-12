@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  height: 97vh; //todo - fix overflow 
+}
+
+.welcome-screen {
+  background-color: blue;
+  width: 50%;
+  height: 100%;
+}
+
+
+.form-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
