@@ -1,0 +1,25 @@
+.selectData {
+    width: var(--input-size);
+    display: block;
+
+}
+
+.smallInput {
+    width: var(--input-size);
+    display: flex;
+    justify-content: space-between;
+
+    label {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+
+        input {
+            width: 100%;
+        }
+
+        span {
+            font-size: var(--xs-f);
+        }
+    }
+}

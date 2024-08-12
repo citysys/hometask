@@ -1,0 +1,21 @@
+[
+
+    {
+        "label": "אימייל",
+        "type": "email",
+        "name": "email",
+        "required": true
+    },
+    {
+        "label": "סיסמא",
+        "type": "password",
+        "name": "password",
+        "required": true
+    },
+    {
+        "label": "זכור אותי",
+        "type": "checkbox",
+        "name": "rememberMeLogin",
+        "required": false
+    }
+]

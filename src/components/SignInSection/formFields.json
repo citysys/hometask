@@ -1,0 +1,56 @@
+[
+    {
+        "label": "שם מלא",
+        "type": "text",
+        "name": "fullName",
+        "required": true
+    },
+    {
+        "label": "תעודת זהות",
+        "type": "id",
+        "name": "id",
+        "required": true
+    },
+    {
+        "label": "תאריך לידה ",
+        "type": "date",
+        "name": "birthDate",
+        "required": true
+    },
+    {
+        "label": "אימייל",
+        "type": "email",
+        "name": "email",
+        "required": true
+    },
+    {
+        "label": "",
+        "type": "address",
+        "name": "",
+        "required": true
+    },
+    {
+        "label": "סיסמא",
+        "type": "password",
+        "name": "password",
+        "required": true
+    },
+    {
+        "label": "אימות סיסמא",
+        "type": "password",
+        "name": "confirmPassword",
+        "required": true
+    },
+    {
+        "label": "זכור אותי",
+        "type": "checkbox",
+        "name": "rememberMe",
+        "required": false
+    },
+    {
+        "label": "קראתי ואני מאשר את תנאי השימוש",
+        "type": "checkbox",
+        "name": "termsAccepted",
+        "required": true
+    }
+]

@@ -1,0 +1,92 @@
+@import "../../vars.scss";
+
+.adsSection {
+    width: 50%;
+    height: 100vh;
+    background-color: var(--prime-blue);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: flex-start;
+    gap: 1rem;
+    transition: .4s;
+    z-index: 2;
+
+    h1 {
+        user-select: none;
+        max-width: 470px;
+        color: #fff;
+        font-weight: 400;
+        text-align: center;
+        font-size: var(--xl-f);
+    }
+
+    .phoneWrapper {
+        height: 100%;
+        width: 100%;
+        max-width: 600px;
+        max-height: 600px;
+        position: relative;
+        padding: 0.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: linear-gradient(to right, rgba(15, 112, 218, 1), rgba(0, 122, 255, 1));
+
+        .phoneImage {
+            top: 20%;
+            width: 56%;
+            height: 100%;
+            min-width: 200px;
+            max-height: 400px;
+            max-width: 400px;
+            background-image: url(../../assets/images/phoneImage.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+
+            &:nth-child(1) {
+                top: 58%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &:nth-child(2),
+            &:nth-child(3) {
+                scale: 0.8;
+                z-index: 1;
+            }
+
+            &:nth-child(2) {
+                transform: translateX(34%);
+            }
+            
+            &:nth-child(3) {
+                transform: translateX(-34%);
+            }
+        }
+    }
+    @media (width >= $lg) {
+     position: absolute;
+     box-shadow: 0 0 4px 0 #333;
+    &.loginDisplay{
+        transform: translate(-100%);
+    }
+    }
+    @media (width < $lg) {
+        width: 100%;
+        padding: 2rem;
+        
+    }
+    @media (width < $sm) {
+        .phoneWrapper {
+        background: none;
+        }
+    }
+}

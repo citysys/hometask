@@ -1,0 +1,25 @@
+@import "../../vars.scss";
+
+.access-page {
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    main {
+        width: 100%;
+        display: flex;  
+        @media (width < $lg) { // Use min-width for responsive styling
+            &.mainLoginDisplay{
+                .signInSection{
+                    display: none;
+                }
+            }
+            &.mainSignInDisplay{
+                .loginSection{
+                    display: none;
+                }
+            }
+ 
+        }
+    }
+}

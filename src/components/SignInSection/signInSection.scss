@@ -1,0 +1,111 @@
+@import "../../vars.scss";
+
+.loginSection, .signInSection {
+    width: 50%;
+    height: 96vh;
+    padding: 0rem 4% 0 1rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+
+    .logoCity {
+        margin-bottom: 6px;
+        width: 9rem;
+        height: 6.2rem;
+        background-image: url(/src/assets/images/logo-city.png);
+        background-position: 1.6rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    h2 {
+        margin: 4px 0;
+        font-size: var(--l-f);
+        font-weight: 600;
+    }
+
+    h4 {
+        font-size: var(--xs-f);
+        font-weight: 400;
+
+    }
+
+    .formContainer {
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 5%;
+            padding: 1rem 0;
+            width: 100%;
+            max-width: 710px;
+
+            .inputContainer {
+                width: 40%;
+                display: flex;
+            }
+
+            div {
+                margin-bottom: 0;
+            }
+            div.ant-form-item-explain-error{
+                padding: 2px;
+                font-size: var(--s-f);
+            }
+        }
+    }
+
+    .loginText {
+        width: 100%;
+        text-align: center;
+        font-size: var(--s-f);
+        a {
+            color:#1677ff ;
+            font-size: var(--s-f);
+            text-decoration: underline;
+        }
+       
+    }
+
+    .btnSubmit {
+        font-size: var(--s-f);
+        width: 40%;
+        padding: .5rem;
+        width: var(--input-size);
+    }
+
+    button.connectWithGoogle {
+        padding: .5rem;
+        font-size: var(--s-f);
+        width: var(--input-size);
+        background-color: rgba(45, 55, 72, 1);
+        color: #fff;
+        border-radius: 6px;
+        border: none;
+        
+        &:hover {
+            cursor: pointer;
+            color: #fff !important;
+            background: rgba(45, 55, 72, 1) !important;
+            opacity: .9;
+        }
+    }
+
+    @media (width < $lg) {
+        height: unset;
+        width: 100%;
+        padding: .6rem 3rem;
+        display: flex;
+    }
+
+    @media (width < $sm) {
+        height: unset;
+        width: 100%;
+        padding: .6rem .6rem;
+
+        form {
+            justify-content: center;
+        }
+    }
+
+
+}

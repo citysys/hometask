@@ -1,0 +1,23 @@
+@import "../../vars.scss";
+.inputField{
+    width: var(--input-size);
+    display: flex;
+}
+.inputField[type=date]{
+    display: block;
+}
+span.spanLabel{
+    font-size: var(--xs-f);
+}
+.inputCheckBox{
+    width: 100%;
+    width: 460px;
+    @media (width < $lg) {
+        width: 600px;
+    }
+
+    @media (width < $sm) {
+        width: 260px;
+ 
+    }
+}

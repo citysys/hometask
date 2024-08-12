@@ -1,0 +1,76 @@
+@import "./vars.scss";
+
+
+@font-face {
+  font-family: Heebo-Med;
+  src: url(../src//assets/fonts/Heebo/Heebo-Regular.ttf);
+}
+
+@font-face {
+  font-family: Heebo-Title;
+  src: url(../src//assets/fonts/Heebo/Heebo-Bold.ttf);
+}
+
+:root {
+  --prime-blue: #0973E7;
+
+}
+
+body {
+  direction: rtl;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Heebo-Med;
+}
+
+:root {
+
+  @media (width < $sm) {
+    --xxs-f: .6rem;
+    --xs-f: .8rem;
+    --s-f: .85rem;
+    --m-f: 1rem;
+    --l-f: .9rem;
+    --xl-f: 1.4rem;
+    --xxl-f: 2rem;
+    --xxxl-f: 2.6rem;
+    --input-size: 260px
+  }
+
+  @media (width < $lg) {
+
+    --xxs-f: .6rem;
+    --xs-f: .7rem;
+    --s-f: .8rem;
+    --m-f: 1rem;
+    --l-f: 1rem;
+    --xl-f: 1.5rem;
+    --xxl-f: 2rem;
+    --xxxl-f: 3.2rem;
+    --input-size: 300px
+  }
+
+  @media (width >= $lg) {
+
+    --xxs-f: .6rem;
+    --xs-f: .75rem;
+    --s-f: .8rem;
+    --m-f: 1rem;
+    --l-f: 1.2rem;
+    --xl-f: 1.6rem;
+    --xxl-f: 2.2rem;
+    --xxxl-f: 3.4rem;
+    --input-size: 230px
+  }
+}
+
+h2,
+h3,
+h4,
+h5 {
+  margin-block: 0;
+}
