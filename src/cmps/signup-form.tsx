@@ -1,6 +1,7 @@
 
-import { Button, Checkbox, Form, Input, DatePicker, Select, Space } from "antd"
+import { Button, Checkbox, Form, Input, DatePicker, Select, Flex } from 'antd'
 import type { FormProps } from 'antd'
+import googleImg  from '../assets/img/google-img.png'
 
 type FieldType = {
     fullName?: string;
@@ -47,24 +48,24 @@ export function SignupForm() {
                         label="שם מלא"
                         name="fullName"
                         rules={[{ required: true, message: 'נא להזין שם מלא' }]}
-                        
+
                     >
-                        <Input 
-                        style={{ width: '100%' }}
-                         />
+                        <Input
+                            style={{ width: '100%' }}
+                        />
                     </Form.Item>
 
                     <Form.Item<FieldType>
                         label="תאריך לידה (MM/DD/YY)"
                         name="birthDate"
                         rules={[{ required: true, message: 'נא להזין תאריך לידה' }]}
-                        >
+                    >
                         <DatePicker
                             format={dateFormat}
                             placement="topRight"
                             placeholder=""
                             style={{ width: '100%' }}
-                             />
+                        />
                     </Form.Item>
 
                     <Form.Item<FieldType>
@@ -163,7 +164,7 @@ export function SignupForm() {
                     <Form.Item<FieldType>
                         name="approveConditions"
                         valuePropName="checked"
-                        wrapperCol={{ offset: 0, span: 16 }}
+                        wrapperCol={{ span: 16 }}
                     >
                         <Checkbox>
                             <p>
@@ -176,11 +177,21 @@ export function SignupForm() {
                 </section>
 
                 <section className="submit-btns">
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
+                    <div className="create-account-btn">
+
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" block>
+                                צור חשבון
+                            </Button>
+                        </Form.Item>
+                    </div>
+
+                    <div className="google-signup-btn">
+                        <Button type="secondary" block>
+                            <img src={googleImg} alt="" />
+                            להתחברות עם חשבון גוגל
                         </Button>
-                    </Form.Item>
+                    </div>
                 </section>
 
             </Form>

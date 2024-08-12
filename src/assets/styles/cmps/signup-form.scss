@@ -32,4 +32,38 @@
             }
         }
     }
+
+    .checkbox-fields {
+        >* {
+            margin-block: 1rem;
+        }
+    }
+
+    .submit-btns {
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        gap: 1rem;
+         >* {
+            width: 50%;
+         }
+
+         button {
+            height: 48px;
+         }
+
+         .google-signup-btn {
+            button {
+                background-color: $primary-text-clr;
+                color: $secondary-text-clr;
+
+                &:hover {
+                    background-color: lighten($primary-text-clr,15%);
+                }
+            }
+         }
+
+    }
+
 }
