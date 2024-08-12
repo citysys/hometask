@@ -1,9 +1,10 @@
-
+import { useState, useEffect } from 'react'
 import { Button, Checkbox, Form, Input, DatePicker, Select } from 'antd'
 import type { FormProps } from 'antd'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { StoreValue } from 'rc-field-form/lib/interface'
 import googleImg from '../assets/img/google-img.png'
+import { cityService, Street } from '../services/city.service'
 
 type FieldType = {
     fullName?: string;
@@ -20,10 +21,37 @@ type FieldType = {
 }
 
 export function SignupForm({ showSignupModal }: { showSignupModal: () => void }) {
+    useEffect(() => {
+        loadCities()
+    }, [])
 
     const [form] = Form.useForm()
 
+    const [cities, setCities] = useState<string[]>([])
+    const [streets, setStreets] = useState<Street[]>([])
+
+    const loadCities = async () => {
+        try {
+            const citiesList = await cityService.getCities()
+            setCities(citiesList)
+        } catch (error) {
+            console.error('Failed fetching cities: ', error)
+        }
+    }
+
+    const loadStreets = async () => {
+        console.log('loading streets')
+        try {
+            const streetsList = await cityService.getStreets(form.getFieldsValue(true)['city'])
+            setStreets(streetsList)
+        } catch (error) {
+            console.error('Failed fetching streets: ', error)
+        }
+    }
+
+
     const onFinish: FormProps<FieldType>['onFinish'] = (values: FieldType) => {
+        console.log('values: ', values)
         showSignupModal()
     }
 
@@ -46,7 +74,6 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
 
     const validateConfirmPassword = async (_: RuleObject, value: StoreValue): Promise<void> => {
         const password = form.getFieldsValue(true)['password']
-        // console.log('password: ', password) //undefined
         if (value !== password) {
             return Promise.reject(new Error('The passwords do not match.'))
         }
@@ -142,27 +169,19 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                         label="עיר"
                         name="city"
                         rules={[{ required: true, message: 'נא להזין עיר' }]}
-                    >
+                        >
                         <Select
+                            onBlur={loadStreets}
                             showSearch
                             optionFilterProp="label"
-                            options={[
-                                //temp
-                                {
-                                    value: 'חיפה',
-                                    label: 'חיפה',
-                                },
+                            options={cities.map((currCity) => {
+                                const city = {
+                                    value: currCity,
+                                    label: currCity
+                                }
+                                return city
+                            })}
 
-                                {
-                                    value: 'תל אביב',
-                                    label: 'תל אביב',
-                                },
-                                {
-                                    value: 'נתניה',
-                                    label: 'נתניה',
-                                },
-
-                            ]}
                         />
                     </Form.Item>
 
@@ -178,14 +197,16 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                                 <Select
                                     showSearch
                                     optionFilterProp="label"
-                                    options={[
-                                        //temp
-                                        {
-                                            value: 'העצמאות',
-                                            label: 'העצמאות'
-                                        },
+                                    options={
+                                        streets.map((street) => {
+                                            const currStreet = {
+                                                value: street.streetName,
+                                                label: street.streetName
+                                            }
+                                            return currStreet
+                                        })
+                                    }
 
-                                    ]}
                                 />
                             </Form.Item>
                         </div>
@@ -240,7 +261,7 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                         valuePropName="checked"
                         rules={[
                             { required: true, message: 'נא לאשר את תנאי השימוש' },
-                           
+
                         ]}
                     >
                         <Checkbox>

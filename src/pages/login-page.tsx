@@ -1,17 +1,16 @@
-import { useState } from 'react'
+import { useState} from 'react'
 import logo from '../assets/img/logo.png'
 import { Hero } from "../cmps/hero"
 import { SignupForm } from '../cmps/signup-form'
 import { SignupModal } from '../cmps/signup-modal'
 
 export function LoginPage() {
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const showSignupModal = () => {
         setIsModalOpen(true)
     }
-
 
     return (
         <div className="login-page">
