@@ -1,7 +1,10 @@
 
-import { Button, Checkbox, Form, Input, DatePicker, Select, Flex } from 'antd'
+import { Button, Checkbox, Form, Input, DatePicker, Select } from 'antd'
 import type { FormProps } from 'antd'
-import googleImg  from '../assets/img/google-img.png'
+import { RuleObject } from 'rc-field-form/lib/interface'
+import { StoreValue } from 'rc-field-form/lib/interface'
+
+import googleImg from '../assets/img/google-img.png'
 
 type FieldType = {
     fullName?: string;
@@ -19,6 +22,8 @@ type FieldType = {
 
 export function SignupForm() {
 
+    const [form] = Form.useForm()
+
     const onFinish: FormProps<FieldType>['onFinish'] = (values: FieldType) => {
         console.log('Success:', values)
     }
@@ -27,20 +32,45 @@ export function SignupForm() {
         console.log('Failed:', errorInfo)
     }
 
+    const validateIdNumber = async (_: RuleObject, value: StoreValue): Promise<void> => {
+        const id = value.toString()
+        const isValid = Array.from(id, Number)
+            .reduce((counter, digit, i) => {
+                const step = digit * ((i % 2) + 1)
+                return counter + (step > 9 ? step - 9 : step)
+            }, 0) % 10 === 0
+        if (!isValid) {
+            return Promise.reject(new Error('ID number is not valid.'))
+        }
+        return Promise.resolve()
+    }
+
+    const validateConfirmPassword = async (_: RuleObject, value: StoreValue): Promise<void> => {
+        const password = form.getFieldsValue(true)['password']
+        // console.log('password: ', password) //undefined
+        if (value !== password) {
+            return Promise.reject(new Error('The passwords do not match.'))
+        }
+        return Promise.resolve()
+    }
+ 
     const dateFormat: string = 'MM/DD/YY'
+
 
     return (
         <div className="signup-form">
             <Form
-                name="basic"
+                name="signup-form"
+                form={form}
                 layout="vertical"
                 labelCol={{ span: 16 }}
                 labelWrap="false"
-                initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 requiredMark="optional"
+                validateTrigger="onSubmit"
+
             >
 
                 <section className="text-fields">
@@ -48,7 +78,46 @@ export function SignupForm() {
                     <Form.Item<FieldType>
                         label="שם מלא"
                         name="fullName"
-                        rules={[{ required: true, message: 'נא להזין שם מלא' }]}
+                        validateTrigger="onInput"
+                        rules={[
+                            { required: true, message: 'נא להזין שם מלא' },
+                            { max: 15, message: 'עברת את מגבלת התוים' },
+                            { whitespace: true, message: 'נא להזין שם מלא' }
+                        ]}
+
+                    >
+                        <Input
+                            style={{ width: '100%' }}
+                        />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                        label="תעודת זהות"
+                        name="idNumber"
+                        validateTrigger="onBlur"
+                        rules={[
+                            { required: true, message: 'נא להזין תעודת זהות כולל ספרת ביקורת' },
+                            { len: 9, message: 'נא להזין תעודת זהות באורך 9 ספרות' },
+                            { whitespace: true, message: 'נא להזין תעודת זהות כולל ספרת ביקורת' },
+                            { validator: validateIdNumber, message: 'מספר תעודת זהות לא תקין' }
+                        ]}
+
+                    >
+                        <Input
+                            style={{ width: '100%' }}
+                        />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                        label="אימייל"
+                        name="email"
+                        validateTrigger="onInput"
+                        rules={[
+                            { required: true, message: 'נא להזין כתובת אימייל' },
+                            { whitespace: true, message: 'נא להזין כתובת אימייל' },
+                            { type: 'email', message: '  נא להזין כתובת אימייל' },
+
+                        ]}
 
                     >
                         <Input
@@ -116,7 +185,6 @@ export function SignupForm() {
                                             label: 'העצמאות'
                                         },
 
-
                                     ]}
                                 />
                             </Form.Item>
@@ -138,7 +206,10 @@ export function SignupForm() {
                     <Form.Item<FieldType>
                         label="סיסמא"
                         name="password"
-                        rules={[{ required: true, message: 'נא להזין סיסמא' }]}
+                        rules={[
+                            { required: true, message: 'נא להזין סיסמא' },
+                            { min: 5, message: 'הסיסמא חייבת להכיל 5 תוים ומעלה' }
+                        ]}
                     >
                         <Input.Password />
                     </Form.Item>
@@ -146,7 +217,10 @@ export function SignupForm() {
                     <Form.Item<FieldType>
                         label="אימות סיסמא"
                         name="confirmPassword"
-                        rules={[{ required: true, message: 'נא לאמת סיסמא' }]}
+                        rules={[
+                            { required: true, message: 'נא לאמת סיסמא' },
+                            {validator: validateConfirmPassword, message: 'הסיסמאות אינן זהות'}
+                        ]}
                     >
                         <Input.Password />
                     </Form.Item>
