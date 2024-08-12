@@ -3,7 +3,6 @@ import { Button, Checkbox, Form, Input, DatePicker, Select } from 'antd'
 import type { FormProps } from 'antd'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { StoreValue } from 'rc-field-form/lib/interface'
-
 import googleImg from '../assets/img/google-img.png'
 
 type FieldType = {
@@ -20,12 +19,12 @@ type FieldType = {
     approveConditions?: boolean;
 }
 
-export function SignupForm() {
-
+export function SignupForm({ showSignupModal }: { showSignupModal: () => void }) {
+   
     const [form] = Form.useForm()
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values: FieldType) => {
-        console.log('Success:', values)
+        showSignupModal()
     }
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo: Parameters<FormProps<FieldType>['onFinishFailed']>[0]) => {
