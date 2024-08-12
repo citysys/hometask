@@ -16,7 +16,7 @@ To get started with the project, please fork the repository to your GitHub accou
 
 Technical Requirements
 
-- Use TypeScript & SCSS: The project should be developed using TypeScript for type safety and SCSS for styling.
+- Use TypeScript & SASS: The project should be developed using TypeScript for type safety and SASS for styling.
 - Ant Design (antd) Form: The form should utilize Ant Design (antd) components. Ensure that validation and form structure leverage antd features.
 - User-Friendly Error Display: Display errors in a user-friendly manner, such as a red border around the field. All error messages should be displayed in Hebrew.
 - Form Submission: Upon form submission, the form should be validated. If there are no errors, display a basic success message in an antd modal (no need for advanced styling).
