@@ -1,0 +1,121 @@
+// Define variables for colors, font-sizes, etc., for better maintainability
+$primary-color: #0973e7;
+$secondary-color: #0f70da;
+$tertiary-color: #007aff;
+$font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+$white: #ffffff;
+$text-color: #212429;
+
+.App {
+  display: flex;
+  width: 135vw;
+  height: 140vh;
+  justify-content: space-between;
+
+  h1 {
+    text-align: end;
+    margin-bottom: 20px;
+  }
+
+  .SecondaryLine {
+    text-align: end;
+  }
+}
+
+.Carousel-continer {
+  display: flex;
+  flex-direction: column;
+  background: $primary-color;
+  width: 928px;
+  height: 958px;
+  left: 992px;
+  gap: 0px;
+  opacity: 0px;
+
+  .carousel-header {
+    align-self: center;
+    font-family: $font-family;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: $white;
+    width: 70%;
+  }
+
+  .circle-background {
+    background: linear-gradient(324.93deg, $secondary-color 0.74%, $tertiary-color 100%);
+    align-self: center;
+    width: 65%;
+    height: 65%;
+    top: 175px;
+    left: 1159px;
+    gap: 0px;
+    opacity: 0px;
+    border-radius: 100%;
+  }
+
+  .phone-image {
+    width: 90%;
+    height: 100%;
+    top: 257px;
+    left: 1196px;
+    gap: 0px;
+    opacity: 0px;
+    margin-left: 30px;
+    align-self: center;
+    margin-top: 80px;
+  }
+}
+
+.city-logo {
+  align-self: end;
+  width: 175px;
+  height: 125px;
+  top: 13px;
+  left: 702px;
+  gap: 0px;
+  opacity: 0px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  color: $text-color;
+  background: $white;
+  width: 769px;
+  height: 897px;
+  top: 13px;
+  left: 98px;
+  gap: 0px;
+  opacity: 0px;
+  justify-content: center;
+
+  .form-header {
+    font-family: $font-family;
+    width: 200px;
+    font-size: small;
+    opacity: 0px;
+    align-self: end;
+  }
+
+  .row-form {
+    font-family: $font-family;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  .signUp-form-label {
+    width: 358px;
+    height: 74px;
+    top: 283px;
+    left: 98px;
+    gap: 4px;
+    opacity: 0px;
+    text-align: right;
+  }
+}
