@@ -5,6 +5,8 @@ import { RuleObject } from 'rc-field-form/lib/interface'
 import { StoreValue } from 'rc-field-form/lib/interface'
 import googleImg from '../assets/img/google-img.png'
 import { cityService, Street } from '../services/city.service'
+import { storageService } from '../services/async-storage.service'
+
 
 type FieldType = {
     fullName?: string;
@@ -32,8 +34,21 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
 
     const loadCities = async () => {
         try {
-            const citiesList = await cityService.getCities()
-            setCities(citiesList)
+            const storedCities = await storageService.query('cityList')
+            // Check if there is a list of cities in localStorage
+            if (storedCities.length > 0) {
+                // Get an array of only the values
+                const parsedStoredCities = Object.values(storedCities[0]) 
+                console.log('parsedStoredCities: ', parsedStoredCities)
+                setCities(parsedStoredCities)
+            // If the list of cities is not found, fetch them and store in localStorage
+            } else {
+                console.log('getting new cities')
+                const newCitiesList = await cityService.getCities()
+                setCities(newCitiesList)
+                storageService.post('cityList', newCitiesList)
+            }
+            
         } catch (error) {
             console.error('Failed fetching cities: ', error)
         }
@@ -81,7 +96,6 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
     }
 
     const dateFormat: string = 'MM/DD/YY'
-
 
     return (
         <div className="signup-form">

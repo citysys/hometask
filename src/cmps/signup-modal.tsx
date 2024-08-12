@@ -26,7 +26,6 @@ export function SignupModal({ isModalOpen, setIsModalOpen }: SignupModalProps) {
 
                 <p>החשבון שלך נוצר בהצלחה</p>
 
-
             </Modal>
         </div>
 

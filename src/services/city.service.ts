@@ -11,8 +11,6 @@ interface ApiResponse<T = any> {
     result: Response<T>;
 }
 
-const CITIES_ENDPOINT = 'https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba'
-const STREETS_ENDPOINT = 'https://data.gov.il/api/3/action/datastore_search?resource_id=9ad3862c-8391-4b2f-84a4-2d4c68625f4b'
 
 interface Response<T = any> {
     records: Record[]
@@ -29,12 +27,15 @@ export interface Street {
     cityName: string | null;
 }
 
-
+const CITIES_ENDPOINT = 'https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba'
+const STREETS_ENDPOINT = 'https://data.gov.il/api/3/action/datastore_search?resource_id=9ad3862c-8391-4b2f-84a4-2d4c68625f4b'
 
 async function getCities(): Promise<string[]> {
     try {
         const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(CITIES_ENDPOINT)
-        const cities = response.data.result.records.map(record => record.שם_ישוב)
+        const cities = response.data.result.records
+        .map(record => record.שם_ישוב)
+        .filter(city => city !== 'לא רשום')
         return cities
     } catch (error) {
         if (axios.isAxiosError(error)) {
