@@ -40,6 +40,7 @@ export function SignupForm() {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                requiredMark="optional"
             >
 
                 <section className="text-fields">
