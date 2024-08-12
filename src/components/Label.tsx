@@ -7,10 +7,16 @@ interface LabelProps {
 const Label: React.FC<LabelProps> = ({ labelName, name }) => {
   return (
     <div className="signUp-form-label">
-      <p>{labelName}</p>
-      <Form.Item name={name}>
+      <Form layout="vertical"
+      labelCol={{span: 4}}>
+        
+        <Form.Item name={name}
+        label={labelName}
+      >
         <Input style={{ borderRadius: "4px", height: "40px" }} />
       </Form.Item>
+      </Form>
+      
     </div>
   );
 };

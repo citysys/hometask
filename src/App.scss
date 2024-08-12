@@ -94,11 +94,11 @@ $text-color: #212429;
   justify-content: center;
 
   .form-header {
-    font-family: $font-family;
-    width: 200px;
-    font-size: small;
-    opacity: 0px;
     align-self: end;
+    font-family: $font-family;
+    display: flex;
+    flex-direction: column;
+    
   }
 
   .row-form {
