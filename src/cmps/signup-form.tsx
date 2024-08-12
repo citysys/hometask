@@ -1,5 +1,5 @@
 
-import { Button, Checkbox, Form, Input, DatePicker, Select } from "antd"
+import { Button, Checkbox, Form, Input, DatePicker, Select, Space } from "antd"
 import type { FormProps } from 'antd'
 
 type FieldType = {
@@ -34,8 +34,7 @@ export function SignupForm() {
                 name="basic"
                 layout="vertical"
                 labelCol={{ span: 16 }}
-                wrapperCol={{ span:20 }}
-                style={{ maxWidth: 800 }}
+                labelWrap="false"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -48,16 +47,24 @@ export function SignupForm() {
                         label="שם מלא"
                         name="fullName"
                         rules={[{ required: true, message: 'נא להזין שם מלא' }]}
+                        
                     >
-                        <Input />
+                        <Input 
+                        style={{ width: '100%' }}
+                         />
                     </Form.Item>
 
                     <Form.Item<FieldType>
                         label="תאריך לידה (MM/DD/YY)"
                         name="birthDate"
                         rules={[{ required: true, message: 'נא להזין תאריך לידה' }]}
-                    >
-                        <DatePicker format={dateFormat} placement="topRight" placeholder="" />
+                        >
+                        <DatePicker
+                            format={dateFormat}
+                            placement="topRight"
+                            placeholder=""
+                            style={{ width: '100%' }}
+                             />
                     </Form.Item>
 
                     <Form.Item<FieldType>
@@ -89,36 +96,42 @@ export function SignupForm() {
                     </Form.Item>
 
                     <div className="street-fields">
-                        <Form.Item<FieldType>
-                            label="רחוב"
-                            name="street"
-                            rules={[{ required: true, message: 'נא להזין רחוב' }]}
-                        >
-                            <Select
-                                showSearch
-                                optionFilterProp="label"
-                                options={[
-                                    //temp
-                                    {
-                                        value: 'העצמאות',
-                                        label: 'העצמאות'
-                                    },
+                        <div className="street">
 
 
-                                ]}
-                            />
-                        </Form.Item>
+                            <Form.Item<FieldType>
+                                label="רחוב"
+                                name="street"
+                                rules={[{ required: true, message: 'נא להזין רחוב' }]}
+                            >
+                                <Select
+                                    showSearch
+                                    optionFilterProp="label"
+                                    options={[
+                                        //temp
+                                        {
+                                            value: 'העצמאות',
+                                            label: 'העצמאות'
+                                        },
 
-                        <Form.Item<FieldType>
-                            label="מספר בית"
-                            name="houseNumber"
-                            rules={[{ required: true, message: 'נא להזין מספר בית' }]}
-                        >
-                            <Input />
-                        </Form.Item>
 
+                                    ]}
+                                />
+                            </Form.Item>
+                        </div>
+
+                        <div className="house-number">
+
+
+                            <Form.Item<FieldType>
+                                label="מספר בית"
+                                name="houseNumber"
+                                rules={[{ required: true, message: 'נא להזין מספר בית' }]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </div>
                     </div>
-
 
                     <Form.Item<FieldType>
                         label="סיסמא"
@@ -127,7 +140,7 @@ export function SignupForm() {
                     >
                         <Input.Password />
                     </Form.Item>
-                   
+
                     <Form.Item<FieldType>
                         label="אימות סיסמא"
                         name="confirmPassword"
