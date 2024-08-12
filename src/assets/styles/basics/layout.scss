@@ -1,0 +1,29 @@
+.login-page {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(2, 1fr);
+
+    .page-content {
+        background-color: $primary-bg-clr;
+    }
+}
+
+.base-layout {
+    // Fix the header to the top of the page, footer to the bottom, and main to the middle.
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: $layout-padding 1fr $layout-padding;
+
+    >* {
+        grid-column: 2;
+    }
+
+    >*.full {
+        grid-column: 1/ -1;
+    }
+
+}
