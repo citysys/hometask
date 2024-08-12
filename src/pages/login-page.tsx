@@ -17,10 +17,11 @@ export function LoginPage() {
                     </div>
                     <SignupForm />
 
-                    <p className="signup">
+                    <p className="login">
                         <span>יש לך חשבון קיים? </span>
                         <span><a href="#">להתחברות</a></span>
                     </p>
+
                 </main>
                 <footer>footer</footer>
             </div>
