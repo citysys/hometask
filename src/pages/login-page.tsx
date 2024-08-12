@@ -7,7 +7,7 @@ import { SignupModal } from '../cmps/signup-modal'
 export function LoginPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-    
+
     const showSignupModal = () => {
         setIsModalOpen(true)
     }
@@ -22,16 +22,20 @@ export function LoginPage() {
                 </header>
                 <main>
 
-                <SignupModal 
-                isModalOpen={isModalOpen} 
-                setIsModalOpen={setIsModalOpen}
-            />
-                    <div className="signup-title">
-                        <h1>צור חשבון</h1>
-                        <p>לחברות או אדם פרטי</p>
-                    </div>
-                    <SignupForm 
-                    showSignupModal={showSignupModal}
+                    <SignupModal
+                        isModalOpen={isModalOpen}
+                        setIsModalOpen={setIsModalOpen}
+                    />
+                    <section className='signup-text'>
+                        <div className="signup-title">
+                            <h1>צור חשבון</h1>
+                            <p>לחברות או אדם פרטי</p>
+                        </div>
+
+                        <p className='warning'>*שים לב כל השדות הם חובה</p>
+                    </section>
+                    <SignupForm
+                        showSignupModal={showSignupModal}
                     />
 
                     <p className="login">

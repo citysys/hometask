@@ -20,7 +20,7 @@ type FieldType = {
 }
 
 export function SignupForm({ showSignupModal }: { showSignupModal: () => void }) {
-   
+
     const [form] = Form.useForm()
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values: FieldType) => {
@@ -52,7 +52,7 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
         }
         return Promise.resolve()
     }
- 
+
     const dateFormat: string = 'MM/DD/YY'
 
 
@@ -137,7 +137,7 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
-                    
+
                     <Form.Item<FieldType>
                         label="עיר"
                         name="city"
@@ -219,7 +219,7 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                         name="confirmPassword"
                         rules={[
                             { required: true, message: 'נא לאמת סיסמא' },
-                            {validator: validateConfirmPassword, message: 'הסיסמאות אינן זהות'}
+                            { validator: validateConfirmPassword, message: 'הסיסמאות אינן זהות' }
                         ]}
                     >
                         <Input.Password />
@@ -231,7 +231,6 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                     <Form.Item<FieldType>
                         name="remember"
                         valuePropName="checked"
-                        wrapperCol={{ offset: 0, span: 16 }}
                     >
                         <Checkbox>זכור אותי</Checkbox>
                     </Form.Item>
@@ -239,7 +238,10 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                     <Form.Item<FieldType>
                         name="approveConditions"
                         valuePropName="checked"
-                        wrapperCol={{ span: 16 }}
+                        rules={[
+                            { required: true, message: 'נא לאשר את תנאי השימוש' },
+                           
+                        ]}
                     >
                         <Checkbox>
                             <p>

@@ -16,23 +16,34 @@
 
     main {
         padding-block-start: 40px;
-        .signup-title {
+        .signup-text{
             padding-block-end: 2rem;
-            h1 {
-                color: $dark-text-clr;
-                font-family: 'Assistant', Arial, Helvetica, sans-serif;
-                font-weight: 700;
-                font-size: 2rem;
-                line-height: 3rem;
-                letter-spacing: 0.8;
+            display: flex;
+            justify-content: space-between;
+            .signup-title {
+                h1 {
+                    color: $dark-text-clr;
+                    font-family: 'Assistant', Arial, Helvetica, sans-serif;
+                    font-weight: 700;
+                    font-size: 2rem;
+                    line-height: 3rem;
+                    letter-spacing: 0.8;
+                }
+                p {
+                    font-size: 1rem;
+                }
             }
-            p {
-                font-size: 1rem;
+
+            .warning {
+                color: $warning-clr;
+                align-self: end;
             }
         }
 
         .login {
             text-align: center;
         }
+
+        
     }
 }
