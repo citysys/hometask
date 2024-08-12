@@ -107,6 +107,20 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                         />
                     </Form.Item>
 
+
+                    <Form.Item<FieldType>
+                        label="תאריך לידה (MM/DD/YY)"
+                        name="birthDate"
+                        rules={[{ required: true, message: 'נא להזין תאריך לידה' }]}
+                    >
+                        <DatePicker
+                            format={dateFormat}
+                            placement="topRight"
+                            placeholder=""
+                            style={{ width: '100%' }}
+                        />
+                    </Form.Item>
+
                     <Form.Item<FieldType>
                         label="אימייל"
                         name="email"
@@ -123,20 +137,7 @@ export function SignupForm({ showSignupModal }: { showSignupModal: () => void })
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
-
-                    <Form.Item<FieldType>
-                        label="תאריך לידה (MM/DD/YY)"
-                        name="birthDate"
-                        rules={[{ required: true, message: 'נא להזין תאריך לידה' }]}
-                    >
-                        <DatePicker
-                            format={dateFormat}
-                            placement="topRight"
-                            placeholder=""
-                            style={{ width: '100%' }}
-                        />
-                    </Form.Item>
-
+                    
                     <Form.Item<FieldType>
                         label="עיר"
                         name="city"
