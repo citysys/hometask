@@ -1,13 +1,18 @@
 import { FC } from 'react';
-import RegistrationForm from './RegistrationForm';
+
 import WelcomeScreen from './WelcomeScreen';
+import RegistrationForm from './RegistrationForm';
+import TopForm from './TopForm';
 
 const HomePage: FC = () => {
-    
+
     return (
         <div className="container">
             <WelcomeScreen />
-            <RegistrationForm />
+            <div className="full-form-container">
+                <TopForm />
+                <RegistrationForm />
+            </div>
         </div>
     );
 }

@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from 'react';
-import { Form, Input, Button, Select, DatePicker, InputNumber, Checkbox, Row, Col, message } from 'antd';
-import { Rule } from 'antd/es/form';
-import '../style/RegistrationForm.scss';
 import axios from 'axios';
 
-const { Option } = Select;
+import { Form, Input, Button, Select, DatePicker, InputNumber, Checkbox, Row, Col, message } from 'antd';
+import { Rule } from 'antd/es/form';
 
-const EMAIL_RULE: Rule = { type: "email", message: 'הדוא"ל לא תקין!' };
-const REQUIRED_RULE: Rule = { required: true, message: "שדה זה הוא חובה!" };
+import { EMAIL_RULE, REQUIRED_RULE } from "../consts/formRules";
+
+import '../styles/RegistrationForm.scss';
+
+const { Option } = Select;
 
 interface Street {
   _id: number,
@@ -26,30 +27,6 @@ const RegistrationForm: FC = () => {
   const [streets, setStreets] = useState<Street[]>([]);
   const [cities, setCities] = useState<City[]>([]);
 
-  const handleSaveForm = () => {
-    message.success("הטופס נשלח בהצלחה!");
-  };
-
-  const ID_NUMBER_RULE: Rule = {
-    validator: (_, value) => {
-      if (!value || validateIdNumber()) {
-        return Promise.resolve();
-      }
-      return Promise.reject(new Error('תעודת זהות לא תקינה'))
-    }, message: "יש להכניס תעודת זהות ישראלית תקינה"
-  };
-
-  const handleSaveFormFailed = (errorInfo: any) => {
-    form.getFieldValue("street")
-    console.error('Error while send form:', errorInfo);
-    message.error("שליחת הטופס נכשלה.");
-  };
-
-  const handleLoginWithGoogle = () => {
-    message.success("התחברת בהצלחה עם גוגל.");
-  }
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,8 +41,30 @@ const RegistrationForm: FC = () => {
       }
     }
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
+
+  const ID_NUMBER_RULE: Rule = {
+    validator: (_, value) => {
+      if (!value || validateIdNumber()) {
+        return Promise.resolve();
+      }
+      return Promise.reject(new Error('תעודת זהות לא תקינה'))
+    }, message: "יש להכניס תעודת זהות ישראלית תקינה"
+  };
+
+  const handleSaveForm = () => {
+    message.success("הטופס נשלח בהצלחה!");
+  };
+
+  const handleSaveFormFailed = (errorInfo: any) => {
+    console.error('Error while send form:', errorInfo);
+    message.error("שליחת הטופס נכשלה.");
+  };
+
+  const handleLoginWithGoogle = () => {
+    message.success("התחברת בהצלחה עם גוגל.");
+  }
 
   const validateIdNumber = () => {
     let id = form.getFieldValue("idNumber")?.toString().trim();
@@ -82,20 +81,8 @@ const RegistrationForm: FC = () => {
   }
 
   return (
-    <div className="full-container">
-      <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <div>
-          <img src="/citysys-logo.svg" className="web-logo" />
-          <h3>צור חשבון</h3>
-          <h4>לחברות או אדם פרטי</h4>
-        </div>
-        <p className="require-text">
-          *שים לב כל השדות הם שדות חובה
-        </p>
-      </div>
-
+    <>
       <div className="form-container">
-
         <Form
           form={form}
           name="basic"
@@ -223,11 +210,12 @@ const RegistrationForm: FC = () => {
               <Button
                 type="default"
                 block
-                style={{ fontWeight: 600, backgroundColor: "#2D3748", color: "white" }}
+                style={{ backgroundColor: "#2D3748", color: "white" }}
                 onClick={handleLoginWithGoogle}
+                className="create-account-btn"
               >
                 להתחברות עם גוגל
-                <img src="/google-logo.svg" alt="Google Logo" style={{ marginLeft: 8 }} />
+                <img src="/google-logo.svg" alt="גוגל לוגו" style={{ marginLeft: 8 }} />
               </Button>
             </Col>
             <Col span={12}>
@@ -235,7 +223,7 @@ const RegistrationForm: FC = () => {
                 type="primary"
                 block
                 htmlType="submit"
-                style={{ fontWeight: 600 }}
+                className="create-account-btn"
               >
                 צור חשבון
               </Button>
@@ -243,11 +231,11 @@ const RegistrationForm: FC = () => {
           </Row>
         </Form>
       </div>
-      <p>
+      <p className="login-text">
         יש לך חשבון קיים? <a>להתחברות</a>
       </p>
-      <img src="/apps-logo.svg" className="apps-logo" />
-    </div>
+      <img src="/apps-logo.svg" alt="חנויות אפליקציות לוגו" className="apps-logo" />
+    </>
   );
 }
 
