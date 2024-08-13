@@ -215,7 +215,7 @@ const RegistrationForm: FC = () => {
                 className="create-account-btn"
               >
                 להתחברות עם גוגל
-                <img src="/google-logo.svg" alt="גוגל לוגו" style={{ marginLeft: 8 }} />
+                <img src="/google-logo.svg" alt="גוגל לוגו" />
               </Button>
             </Col>
             <Col span={12}>

@@ -1,0 +1,61 @@
+.full-form-container {
+
+  .top-form-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .web-logo {
+    width: 100px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .require-text {
+    color: #FF0000;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    align-self: end;
+    font-size: 0.8rem;
+  }
+
+  .form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .create-account-btn {
+      font-weight: 600;
+
+      >img {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .login-text {
+    align-self: center;
+  }
+
+  .apps-logo {
+    align-self: end;
+  }
+}

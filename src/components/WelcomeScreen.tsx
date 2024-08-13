@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import "../styles/WelcomeScreen.scss";
+
 const WelcomeScreen: FC = () => {
     return (
         <div className="welcome-screen-container">

@@ -1,0 +1,72 @@
+.welcome-screen-container {
+    background-color: #0973E7;
+    width: 50%;
+    color: white;
+    font-size: large;
+    position: relative;
+  
+    h2 {
+      width: 70%;
+      text-align: right;
+      margin-right: 20px;
+      z-index: 3;
+      position: relative;
+      font-weight: 400;
+  
+      text-align: center;
+      margin: 0 auto;
+      position: relative;
+      font-weight: 400;
+      padding: 20px;
+      line-height: 1.4;
+    }
+  
+    .circle {
+      background: linear-gradient(324.93deg, #0F70DA 0.74%, #007AFF 100%);
+      border-radius: 50%;
+      height: 500px;
+      width: 500px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .phones-container {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      img {
+        width: 400px;
+        height: 450px;
+  
+        &.center {
+          z-index: 3;
+          position: absolute;
+          width: 450px;
+          height: 500px;
+        }
+  
+        &.left {
+          z-index: 2;
+          position: absolute;
+          transform: translateX(-60px);
+        }
+  
+        &.right {
+          z-index: 2;
+          position: absolute;
+          transform: translateX(60px);
+        }
+      }
+    }
+  }
+  
+  

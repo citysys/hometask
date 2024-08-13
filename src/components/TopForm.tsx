@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const TopForm: FC = () => {
     return (
-        <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
+        <div className="top-form-container">
             <div>
                 <img src="/citysys-logo.svg" className="web-logo" />
                 <h3>צור חשבון</h3>
