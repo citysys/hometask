@@ -1,41 +1,46 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Form, Input, Button, Select, DatePicker, InputNumber, Checkbox, Row, Col, message } from 'antd';
 import { Rule } from 'antd/es/form';
 import '../style/RegistrationForm.scss';
+import axios from 'axios';
 
 const { Option } = Select;
 
-const EMAIL_RULE: Rule = { type: 'email', message: 'הדוא"ל לא תקין!' };
-const REQUIRED_RULE: Rule = { required: true, message: 'שדה זה הוא חובה!' };
+const EMAIL_RULE: Rule = { type: "email", message: 'הדוא"ל לא תקין!' };
+const REQUIRED_RULE: Rule = { required: true, message: "שדה זה הוא חובה!" };
 
-const CITY_OPTIONS = [
-  { value: '', label: 'בחר עיר' },
-  { value: '1', label: 'בחר עיר1' },
-  { value: '2', label: 'בחר עיר2' },
-  { value: '3', label: 'בחר עיר3' },
-];
+interface Street {
+  _id: number,
+  שם_רחוב: string,
+  סמל_ישוב: number,
+  שם_ישוב: string,
+}
 
-interface RegistrationFormValues {
-  fullName: string;
-  birthDate: string;
-  city: string;
-  password: string;
-  idNumber: string;
-  email: string;
-  address: string;
-  confirmPassword: string;
-  rememberMe: boolean;
-  termsAccepted: boolean;
+interface City {
+  _id: number,
+  שם_ישוב: string,
 }
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
+  const [streets, setStreets] = useState<Street[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
 
   const handleSaveForm = () => {
     message.success("הטופס נשלח בהצלחה!");
   };
 
+  const ID_NUMBER_RULE: Rule = {
+    validator: (_, value) => {
+      if (!value || validateIdNumber()) {
+        return Promise.resolve();
+      }
+      return Promise.reject(new Error('תעודת זהות לא תקינה'))
+    }, message: "יש להכניס תעודת זהות ישראלית תקינה"
+  };
+
   const handleSaveFormFailed = (errorInfo: any) => {
+    form.getFieldValue("street")
     console.error('Error while send form:', errorInfo);
     message.error("שליחת הטופס נכשלה.");
   };
@@ -44,7 +49,37 @@ const RegistrationForm: FC = () => {
     message.success("התחברת בהצלחה עם גוגל.");
   }
 
-  const isFormValid = form.isFieldsTouched(true) && form.getFieldsError().every(({ errors }) => errors.length === 0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: { result: { records: streetsRecords } } } = await axios.get("https://data.gov.il/api/3/action/datastore_search?resource_id=9ad3862c-8391-4b2f-84a4-2d4c68625f4b")
+        setStreets(streetsRecords);
+
+        const { data: { result: { records: citiesRecords } } } = await axios.get("https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba")
+        setCities(citiesRecords);
+      } catch (error) {
+        console.log(error)
+        message.error("אירעה שגיאה, נסו לרען.")
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const validateIdNumber = () => {
+    let id = form.getFieldValue("idNumber")?.toString().trim();
+    if (!id || id.length > 9 || isNaN(Number(id))) {
+      return false;
+    }
+
+    const isValid = Array.from(id, Number).reduce((sum, digit, index) => {
+      const step = digit * ((index % 2) + 1);
+      return sum + (step > 9 ? step - 9 : step);
+    }, 0) % 10 === 0;
+
+    return isValid;
+  }
 
   return (
     <div className="full-container">
@@ -54,7 +89,7 @@ const RegistrationForm: FC = () => {
           <h3>צור חשבון</h3>
           <h4>לחברות או אדם פרטי</h4>
         </div>
-        <p style={{ alignSelf: "end", fontSize: "0.8rem" }}>
+        <p className="require-text">
           *שים לב כל השדות הם שדות חובה
         </p>
       </div>
@@ -81,7 +116,7 @@ const RegistrationForm: FC = () => {
               </Form.Item>
 
               <Form.Item
-                label="תאריך לידה"
+                label="תאריך לידה (MM/DD/YY) "
                 name="birthDate"
                 rules={[REQUIRED_RULE]}
                 required={false}
@@ -99,9 +134,9 @@ const RegistrationForm: FC = () => {
                 rules={[REQUIRED_RULE]}
                 required={false}
               >
-                <Select>
-                  {CITY_OPTIONS.map(option => (
-                    <Option key={option.value} value={option.value}>{option.label}</Option>
+                <Select style={{ width: '100%' }}>
+                  {cities.map(({ _id, שם_ישוב }) => (
+                    <Option key={_id} value={_id}>{שם_ישוב}</Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -120,7 +155,7 @@ const RegistrationForm: FC = () => {
               <Form.Item
                 label="תעודת זהות"
                 name="idNumber"
-                rules={[REQUIRED_RULE]}
+                rules={[REQUIRED_RULE, ID_NUMBER_RULE]}
                 required={false}
               >
                 <Input />
@@ -137,9 +172,11 @@ const RegistrationForm: FC = () => {
 
               <Row gutter={10}>
                 <Col span={14}>
-                  <Form.Item label="רחוב">
+                  <Form.Item label="רחוב" name="street">
                     <Select style={{ width: '100%' }}>
-                      <Select.Option value="">בחר רחוב</Select.Option>
+                      {streets.map(({ _id, שם_רחוב, שם_ישוב, סמל_ישוב }) => (
+                        <Option key={_id} value={_id}>{`${שם_רחוב}, ${שם_ישוב}`}</Option>
+                      ))}
                     </Select>
                   </Form.Item>
                 </Col>
@@ -206,6 +243,10 @@ const RegistrationForm: FC = () => {
           </Row>
         </Form>
       </div>
+      <p>
+        יש לך חשבון קיים? <a>להתחברות</a>
+      </p>
+      <img src="/apps-logo.svg" className="apps-logo" />
     </div>
   );
 }
