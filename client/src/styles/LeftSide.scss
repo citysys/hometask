@@ -1,4 +1,10 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
 .left-side {
+    font-family: 'Poppins', 'Rubik', sans-serif;
     direction: rtl;
     text-align: right;
     width: 992px;

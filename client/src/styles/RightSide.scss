@@ -1,4 +1,10 @@
+@font-face {
+    font-family: 'ABeeZee';
+    src: url('../fonts/ABeeZee/ABeeZee-Regular.ttf') format('truetype');
+}
+
 .right-side {
+    font-family: 'ABeeZee', 'Rubik', sans-serif;
     width: 928px;
     height: 958px;
     background-color: #0873E6;
