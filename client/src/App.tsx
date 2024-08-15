@@ -1,14 +1,16 @@
 import './App.scss'
+import LeftSide from './components/LeftSide'
+import RightSide from './components/RightSide'
 function App() {
 
   return (
     <>
-      <div className='App'>
-        <div className='form-container'>
-
+      <div className='app'>
+        <div className='left-side-container'>
+          <LeftSide />
         </div>
-        <div className='carousel-container'>
-
+        <div className='right-side-container'>
+          <RightSide />
         </div>
       </div>
     </>
