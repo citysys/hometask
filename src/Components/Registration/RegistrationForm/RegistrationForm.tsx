@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, DatePicker, AutoComplete, Row, Col } from 'antd';
+import { Button, Form, Input, DatePicker, AutoComplete, Row, Col, Checkbox } from 'antd';
 import './RegistrationForm.scss';
 import axios from 'axios';
 
@@ -35,8 +35,8 @@ const FormBody: React.FC = () => {
         axios.get('https://data.gov.il/api/3/action/datastore_search', {
             params: {
                 resource_id: '5c78e9fa-c2e2-4771-93ff-7f400a12f7ba',
-                limit: 1000
-            }
+                limit: 1000,
+            },
         })
         .then(response => {
             const cityNames = response.data.result.records.map((city: any) => city.שם_ישוב);
@@ -55,8 +55,8 @@ const FormBody: React.FC = () => {
             axios.get('https://data.gov.il/api/3/action/datastore_search', {
                 params: {
                     resource_id: '9ad3862c-8391-4b2f-84a4-2d4c68625f4b',
-                    filters: JSON.stringify({ "שם_ישוב": selectedCity })
-                }
+                    filters: JSON.stringify({ "שם_ישוב": selectedCity }),
+                },
             })
             .then(response => {
                 const streetNames = response.data.result.records.map((street: any) => street.שם_רחוב);
@@ -78,16 +78,16 @@ const FormBody: React.FC = () => {
             <Form layout="vertical" className="form-container">
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Form.Item name='client-full-name' label='שם מלא' rules={[{ required: true }]}>
+                        <Form.Item name="client-full-name" label="שם מלא" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
-                        <Form.Item name='client-birthday' label='תאריך לידה (MM/DD/YY)' rules={[{ required: true }]}>
+                        <Form.Item name="client-birthday" label="תאריך לידה (MM/DD/YY)" rules={[{ required: true }]}>
                             <DatePicker format="MM/DD/YY" />
                         </Form.Item>
-                        <Form.Item name='city' label='עיר' rules={[{ required: true }]}>
+                        <Form.Item name="city" label="עיר" rules={[{ required: true }]}>
                             <AutoComplete
                                 options={cities.map(city => ({ value: city }))}
-                                placeholder='הקלד שם ישוב'
+                                placeholder="הקלד שם ישוב"
                                 onSelect={setSelectedCity}
                                 filterOption={(inputValue, option) =>
                                     option?.value.includes(inputValue) || false
@@ -95,8 +95,8 @@ const FormBody: React.FC = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            name='registration-password'
-                            label='סיסמא'
+                            name="registration-password"
+                            label="סיסמא"
                             rules={[
                                 { required: true, message: 'אנא הזן סיסמה' },
                                 { min: 6, message: 'הסיסמה חייבת להיות לפחות 6 תווים' },
@@ -108,10 +108,10 @@ const FormBody: React.FC = () => {
                     </Col>
                     <Col span={12}>
                         <Form.Item
-                            name='id'
-                            label='תעודת זהות'
+                            name="id"
+                            label="תעודת זהות"
                             rules={[
-                                { required: true, message: 'אנא הזן תעודת זהות' },
+                                { required: true },
                                 ({ getFieldValue }) => ({
                                     validator(_, value) {
                                         if (!value || isValidIsraeliID(value)) {
@@ -124,7 +124,7 @@ const FormBody: React.FC = () => {
                         >
                             <Input />
                         </Form.Item>
-                        <Form.Item name='client-email' label='אימייל' rules={[{ required: true }, { type: 'email', message: 'אנא הזן כתובת אימייל חוקית' }]}>
+                        <Form.Item name="client-email" label="אימייל" rules={[{ required: true }, { type: 'email', message: 'אנא הזן כתובת אימייל חוקית' }]}>
                             <Input />
                         </Form.Item>
                         <Row gutter={8}>
@@ -133,9 +133,7 @@ const FormBody: React.FC = () => {
                                     <AutoComplete
                                         options={streets.map(street => ({ value: street }))}
                                         placeholder="בחר רחוב"
-                                        onSelect={(value) => {
-                                            setSelectedStreet(value);
-                                        }}
+                                        onSelect={setSelectedStreet}
                                         filterOption={(inputValue, option) =>
                                             option?.value.includes(inputValue) || false
                                         }
@@ -143,14 +141,14 @@ const FormBody: React.FC = () => {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item name='house-number' label='מספר בית' rules={[{ required: true }]}>
+                                <Form.Item name="house-number" label="מספר בית" rules={[{ required: true }]}>
                                     <Input />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item
-                            name='confirm-registration-password'
-                            label='אימות סיסמא'
+                            name="confirm-registration-password"
+                            label="אימות סיסמא"
                             dependencies={['registration-password']}
                             hasFeedback
                             rules={[
@@ -169,6 +167,34 @@ const FormBody: React.FC = () => {
                         </Form.Item>
                     </Col>
                 </Row>
+                <Form.Item name="remember-me" valuePropName="checked">
+                    <Checkbox>זכור אותי</Checkbox>
+                </Form.Item>
+                <Form.Item
+                    name="terms"
+                    valuePropName="checked"
+                    rules={[{ validator: (_, value) => value ? Promise.resolve() : Promise.reject('יש לאשר את תנאי השימוש') }]}
+                >
+                    <Checkbox>
+                        קראתי ואני מאשר את <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer">תנאי השימוש</a>
+                    </Checkbox>
+                </Form.Item>
+                <Button
+                    type="primary"
+                    className="connect-with-google-button"
+                    htmlType="button"
+                    style={{ width: '358px', height: '48px', marginBottom: '10px', opacity: 1 }}
+                >
+                    להתחברות עם חשבון גוגל
+                </Button>
+                <Button
+                    type="default"
+                    className="create-account-button"
+                    htmlType="submit"
+                    style={{ width: '358px', height: '48px', borderRadius: '5px 0px 0px 0px', opacity: 1 }}
+                >
+                    צור חשבון
+                </Button>
             </Form>
         </div>
     );
