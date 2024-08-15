@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, DatePicker, AutoComplete, Row, Col, Checkbox } from 'antd';
 import './RegistrationForm.scss';
 import axios from 'axios';
+import GoogleIcon from '/images/google_icon.svg'; 
 
 /**
  * Validates an Israeli ID number.
@@ -25,7 +26,7 @@ function isValidIsraeliID(id: string): boolean {
     return sum % 10 === 0;
 }
 
-const FormBody: React.FC = () => {
+const RegistrationForm: React.FC = () => {
     const [cities, setCities] = useState<string[]>([]);
     const [streets, setStreets] = useState<string[]>([]);
     const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -71,8 +72,6 @@ const FormBody: React.FC = () => {
         }
     }, [selectedCity]);
 
-    console.log('FormBody rendered');
-
     return (
         <div>
             <Form layout="vertical" className="form-container">
@@ -96,12 +95,14 @@ const FormBody: React.FC = () => {
                         </Form.Item>
                         <Form.Item
                             name="registration-password"
+                            id='password-field'
                             label="סיסמא"
                             rules={[
                                 { required: true, message: 'אנא הזן סיסמה' },
                                 { min: 6, message: 'הסיסמה חייבת להיות לפחות 6 תווים' },
                             ]}
                             hasFeedback
+                            className="password-item" 
                         >
                             <Input.Password />
                         </Form.Item>
@@ -127,9 +128,9 @@ const FormBody: React.FC = () => {
                         <Form.Item name="client-email" label="אימייל" rules={[{ required: true }, { type: 'email', message: 'אנא הזן כתובת אימייל חוקית' }]}>
                             <Input />
                         </Form.Item>
-                        <Row gutter={8}>
+                        <Row gutter={16}>
                             <Col span={16}>
-                                <Form.Item name="street" label="רחוב" rules={[{ required: true }]}>
+                                <Form.Item name="street" id="street" label="רחוב" rules={[{ required: true }]}>
                                     <AutoComplete
                                         options={streets.map(street => ({ value: street }))}
                                         placeholder="בחר רחוב"
@@ -141,8 +142,8 @@ const FormBody: React.FC = () => {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item name="house-number" label="מספר בית" rules={[{ required: true }]}>
-                                    <Input />
+                                <Form.Item name="house-number" id="house-number" label="מספר בית" rules={[{ required: true }]}>
+                                    <Input style={{ width: '80px' }} /> 
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -167,37 +168,41 @@ const FormBody: React.FC = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Form.Item name="remember-me" valuePropName="checked">
-                    <Checkbox>זכור אותי</Checkbox>
-                </Form.Item>
-                <Form.Item
-                    name="terms"
-                    valuePropName="checked"
-                    rules={[{ validator: (_, value) => value ? Promise.resolve() : Promise.reject('יש לאשר את תנאי השימוש') }]}
-                >
-                    <Checkbox>
-                        קראתי ואני מאשר את <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer">תנאי השימוש</a>
-                    </Checkbox>
-                </Form.Item>
-                <Button
-                    type="primary"
-                    className="connect-with-google-button"
-                    htmlType="button"
-                    style={{ width: '358px', height: '48px', marginBottom: '10px', opacity: 1 }}
-                >
-                    להתחברות עם חשבון גוגל
-                </Button>
-                <Button
-                    type="default"
-                    className="create-account-button"
-                    htmlType="submit"
-                    style={{ width: '358px', height: '48px', borderRadius: '5px 0px 0px 0px', opacity: 1 }}
-                >
-                    צור חשבון
-                </Button>
+                <div className="registration-checkboxes align-right-checkbox">
+                    <Form.Item name="remember-me" valuePropName="checked">
+                        <Checkbox>זכור אותי</Checkbox>
+                    </Form.Item>
+                    <Form.Item
+                        name="terms"
+                        valuePropName="checked"
+                        rules={[{ validator:(_, value) => value ? Promise.resolve() : Promise.reject('יש לאשר את תנאי השימוש') }]}
+                    >
+                        <Checkbox>
+                            קראתי ואני מאשר את <a href="#" target="_blank" rel="noopener noreferrer">תנאי השימוש</a>
+                        </Checkbox>
+                    </Form.Item>
+                </div>
+
+                <div className="registration-buttons-container">
+                    <Button
+                        type="primary"
+                        className="connect-with-google-button"
+                        htmlType="button"
+                    >
+                        <img src={GoogleIcon} alt="Google Icon" className="google-icon" />
+                        להתחברות עם חשבון גוגל
+                    </Button>
+                    <Button
+                        type="default"
+                        className="create-account-button"
+                        htmlType="submit"
+                    >
+                        צור חשבון
+                    </Button>
+                </div>
             </Form>
         </div>
     );
 };
 
-export default FormBody;
+export default RegistrationForm;
