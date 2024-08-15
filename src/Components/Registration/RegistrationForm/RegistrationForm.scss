@@ -1,0 +1,46 @@
+.form-container {
+    direction: rtl; 
+    text-align: right;
+    margin-top: 25px; 
+
+    .ant-form-item {
+        text-align: right;
+        margin-right: 20px; 
+        .ant-form-item-label {
+            width: 90px; 
+            height: 22px; 
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 22.4px;
+            letter-spacing: -0.02em;
+            
+            color: #2D3748;
+            text-align: right; 
+            
+        }
+        .ant-form-item-required::before {
+            display: none !important;
+        }
+        }
+    .ant-picker {
+        width: 358px;
+        height: 48px;
+        border-radius: 5px 0px 0px 0px; 
+        border: 1px solid #D1D1D1;
+        text-align: right; 
+    }
+    .ant-input, .ant-input-password, .ant-select-selector {
+        width: 358px; 
+        height: 48px; 
+        border-radius: 5px 0px 0px 0px; 
+        border: 1px solid #D1D1D1;
+        text-align: right; 
+        opacity: 1; 
+        
+    }
+    .ant-form-item-control-input-content {
+        display: flex;
+        justify-content: flex-end; 
+    }
+}

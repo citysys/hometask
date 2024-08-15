@@ -9,7 +9,7 @@ const RegistrationSheet:React.FC=() =>{
         <div className="registration-sheet-container">
             <RegistrationHeader />
             <RegistrationForm />
-            <RegistrationFooter />
+
 
         </div>
     )
