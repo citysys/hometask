@@ -1,0 +1,13 @@
+.registration-header-container{
+    display: flex;
+    flex-direction: column;
+    .logo-image{
+        position: absolute;
+        width: 165px;
+        height: 131px;
+        top: 30px;
+        left: 600px;
+        gap: 0px;
+    }
+}
+
