@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, DatePicker, AutoComplete, Row, Col } from 'antd';
-import './RegistrationForm.scss'
+import './RegistrationForm.scss';
 import axios from 'axios';
 
-const FormBody:React.FC=()=>{    
+/**
+ * Validates an Israeli ID number.
+ * @param id - The ID number as a string.
+ * @returns true if the ID is valid, false otherwise.
+ */
+function isValidIsraeliID(id: string): boolean {
+    if (id.length !== 9 || !/^\d+$/.test(id)) {
+        return false;
+    }
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+        let digit = parseInt(id[i], 10);
+        let multiplier = i % 2 === 0 ? 1 : 2;
+        let product = digit * multiplier;
+        if (product > 9) {
+            product = Math.floor(product / 10) + (product % 10);
+        }
+        sum += product;
+    }
+    return sum % 10 === 0;
+}
+
+const FormBody: React.FC = () => {
     const [cities, setCities] = useState<string[]>([]);
-    const [streets, setStreets]= useState<string[]>([]);
+    const [streets, setStreets] = useState<string[]>([]);
     const [selectedCity, setSelectedCity] = useState<string | null>(null);
     const [selectedStreet, setSelectedStreet] = useState<string | null>(null);
+
     useEffect(() => {
         axios.get('https://data.gov.il/api/3/action/datastore_search', {
             params: {
@@ -19,13 +42,14 @@ const FormBody:React.FC=()=>{
             const cityNames = response.data.result.records.map((city: any) => city.שם_ישוב);
             if (cityNames.length !== cities.length) {
                 setCities(cityNames);
-                console.log('setCities executed')
+                console.log('setCities executed');
             }
         })
         .catch(error => {
             console.error('Error fetching cities: ', error);
         });
     }, [cities]);
+
     useEffect(() => {
         if (selectedCity) {
             axios.get('https://data.gov.il/api/3/action/datastore_search', {
@@ -37,18 +61,17 @@ const FormBody:React.FC=()=>{
             .then(response => {
                 const streetNames = response.data.result.records.map((street: any) => street.שם_רחוב);
                 setStreets(streetNames);
-                console.log('setStreet executed')
+                console.log('setStreet executed');
             })
             .catch(error => {
                 console.error('Error fetching streets:', error);
             });
         } else {
-            setStreets([]); 
+            setStreets([]);
         }
     }, [selectedCity]);
-    
-    
-    console.log('FormBody rendered')
+
+    console.log('FormBody rendered');
 
     return (
         <div>
@@ -84,7 +107,21 @@ const FormBody:React.FC=()=>{
                         </Form.Item>
                     </Col>
                     <Col span={12}>
-                        <Form.Item name='id' label='תעודת זהות' rules={[{ required: true }]}>
+                        <Form.Item
+                            name='id'
+                            label='תעודת זהות'
+                            rules={[
+                                { required: true, message: 'אנא הזן תעודת זהות' },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || isValidIsraeliID(value)) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(new Error('תעודת זהות אינה תקינה'));
+                                    },
+                                }),
+                            ]}
+                        >
                             <Input />
                         </Form.Item>
                         <Form.Item name='client-email' label='אימייל' rules={[{ required: true }, { type: 'email', message: 'אנא הזן כתובת אימייל חוקית' }]}>
@@ -135,7 +172,6 @@ const FormBody:React.FC=()=>{
             </Form>
         </div>
     );
-    
-}
+};
 
 export default FormBody;
