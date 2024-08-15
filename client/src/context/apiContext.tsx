@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 
-// Define the type for the context data
+
 type CityStreetContextType = {
     cityStreetData: { [city: string]: string[] };
 };
 
-// Create the context with a default value
+
 const CityStreetContext = createContext<CityStreetContextType | undefined>(undefined);
 
-// Context provider component
+
 export const CityStreetProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [cityStreetData, setCityStreetData] = useState<{ [city: string]: string[] }>({});
 
@@ -52,7 +52,7 @@ export const CityStreetProvider: React.FC<{ children: ReactNode }> = ({ children
     );
 };
 
-// Custom hook to use the CityStreetContext
+
 export const useCityStreetContext = () => {
     const context = useContext(CityStreetContext);
     if (context === undefined) {

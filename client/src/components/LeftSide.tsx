@@ -64,14 +64,14 @@ const LeftSide: React.FC<LeftSideProps> = () => {
     const handleCityChange = (value: string) => {
         if (cityStreetData[value as keyof typeof cityStreetData]) {
             setStreetOptions(cityStreetData[value as keyof typeof cityStreetData]);
-            form.setFieldsValue({ streetName: undefined }); // Clear the street name when the city changes
+            form.setFieldsValue({ streetName: undefined }); 
         } else {
             setStreetOptions([]);
-            form.setFieldsValue({ streetName: undefined }); // Clear the street name when the city changes
+            form.setFieldsValue({ streetName: undefined }); 
             return;
         }
         setStreetOptions(cityStreetData[value as keyof typeof cityStreetData]);
-        form.setFieldsValue({ streetName: undefined }); // Clear the street name when the city changes
+        form.setFieldsValue({ streetName: undefined }); 
     };
 
     return (
