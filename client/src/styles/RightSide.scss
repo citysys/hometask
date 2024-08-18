@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'ABeeZee';
+    src: url('../fonts/ABeeZee/ABeeZee-Regular.ttf') format('truetype');
+}
+
+.right-side {
+    font-family: 'ABeeZee', 'Rubik', sans-serif;
+    width: 928px;
+    height: 958px;
+    background-color: #0873E6;
+    position: absolute;
+}
+
+.right-side-heading {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    width: 100%;
+}
+
+.elipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 74%;
+    height: 74%;
+    background-color: grey;
+    z-index: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #0279F8 0%, #0873E6 100%);
+}
+
+.phone-pictures {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 20%;
+
+    .main {
+        width: 40%;
+        z-index: 3;
+    }
+
+    .left {
+        position: relative;
+        left: 51%;
+        width: 30%;
+        z-index: 2;
+    }
+
+    .right {
+        position: relative;
+        right: 51%;
+        width: 30%;
+        z-index: 2;
+    }
+
+}

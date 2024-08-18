@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+.left-side {
+    font-family: 'Poppins', 'Rubik', sans-serif;
+    direction: rtl;
+    text-align: right;
+    width: 992px;
+    height: 958px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.title-container {
+    width: 100%;
+    padding-top: 3%;
+ 
+}
+
+.title-main {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.title-secondary {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 2%;
+
+
+    span {
+        width: fit-content;
+    }
+    #span-left {
+        color: red;
+    }
+}
+
+.form-container {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 3%;
+
+}
+
+
+
+.entry-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+}
+
+.logo {
+    width: 165px;
+}
+
+.google-store-image {
+    width: 135px;
+    height: 40px;
+}
+
+.apple-store-image {
+    width: 135px;
+    height: 40px;
+}
+
+.app-stores-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-top: 3%;
+}
+
+.already-have-account-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3%;
+}
+
+.submit-row {
+    Button {
+        font-weight: bold;
+        font-size: 14px;
+    }
+}
+
+.connect-with-google {
+    background-color: #2D3748;
+    color: white;
+}
