@@ -1,0 +1,16 @@
+body {
+  background-color: lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+* {
+  font-family: 'Assistant', sans-serif;
+  box-sizing: border-box;
+}
+
+.df {
+  display: flex;
+}

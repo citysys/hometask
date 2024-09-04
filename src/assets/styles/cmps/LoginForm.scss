@@ -1,0 +1,115 @@
+.login-form {
+  display: flex;
+  flex-direction: row-reverse;
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+  }
+
+  .right-side {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0973e7;
+    padding-inline: 6.125rem;
+    text-align: center;
+    width: 50rem;
+
+    header {
+      margin-block: 2rem 8rem;
+      line-height: 3.5rem;
+      z-index: 10;
+
+      h1 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        font-weight: 400;
+        margin: 0;
+      }
+    }
+
+    .images {
+      position: relative;
+
+      img {
+        width: 15rem;
+      }
+
+      img:last-child {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 19.5rem;
+      }
+    }
+
+    .ball {
+      background-color: #0378f8;
+      width: 37rem;
+      height: 37rem;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .left-side {
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 2rem 6.125rem;
+
+    .logo {
+      width: 10rem;
+      align-self: flex-end;
+      margin-inline-end: -1.5rem;
+    }
+
+    header {
+      h1 {
+        text-align: right;
+        font-size: 1.75rem;
+        margin-block: 1rem;
+      }
+
+      .sub-header {
+        display: flex;
+        justify-content: space-between;
+        padding-block-end: 2rem;
+
+        span:first-child {
+          color: red;
+        }
+      }
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    .existing-account {
+      text-align: center;
+      margin-block: 1.5rem;
+
+      span {
+        margin-inline-end: 0.3rem;
+      }
+    }
+
+    .store-btns {
+      display: flex;
+      justify-content: end;
+      gap: 0.8rem;
+
+      img {
+        width: 9.375rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
