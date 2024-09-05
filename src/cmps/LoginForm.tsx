@@ -107,7 +107,7 @@ export default function LoginForm() {
     return isValid ? Promise.resolve() : Promise.reject('רחוב לא תקין')
   }
 
-  const validateIsraeliID = (rule: any, value: string) => {
+  const validateIsraeliID = (_: any, value: string) => {
     if (!value) return Promise.resolve()
     const isValid = /^[0-9]{9}$/.test(value) && validateCheckDigit(value)
     return isValid ? Promise.resolve() : Promise.reject('תעודת זהות לא תקינה')
@@ -183,7 +183,7 @@ export default function LoginForm() {
               >
                 <DatePicker
                   format='DD/MM/YY'
-                  style={{ width: '100%', direction: 'ltr' }}
+                  style={{ width: '100%' }}
                   disabledDate={(current) =>
                     current && current > moment().endOf('day')
                   }
@@ -342,7 +342,7 @@ export default function LoginForm() {
                 }}
                 icon={
                   <img
-                    src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/24px-Google_%22G%22_logo.svg.png'
+                    src='/gIcon.svg'
                     alt='Google Icon'
                     style={{ marginRight: '10px' }}
                   />
@@ -371,7 +371,7 @@ export default function LoginForm() {
             <a href='#'>להתחברות</a>
           </div>
           <div className='store-btns'>
-            <img src='/app-store.png' />
+            <img src='/app-store.png' alt='App Store' />
             <img src='/google-play.png' alt='Google Play' />
           </div>
         </Form>
