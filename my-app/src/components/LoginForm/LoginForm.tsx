@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import "./styles.scss";
 import logo from "../../assets/images/logo.png";
 import getTheApp from "../../assets/images/app.png";
@@ -18,14 +18,15 @@ import {
 } from "antd";
 import type { FormProps, CheckboxProps } from "antd";
 import { isValidIsraeliID } from "../../utils/utils";
-import { getCities } from "../../services/addressService";
+import { getCities, getStreets } from "../../services/addressService";
 
 const LoginForm: React.FC = () => {
   const [componentVariant, setComponentVariant] =
     useState<FormProps["variant"]>("filled");
   const [cities, setCities] = useState<{ id: string; name: string }[]>([]);
-  // const [streets, setStreets] = useState<{ id: string; name: string }[]>([]);
-  const [selectedCity, setSelectedCity] = useState<number | null>(null);
+  const [streets, setStreets] = useState<{ id: string; name: string }[]>([]);
+  const [isSelectedCity, setIsSelectedCity] = useState(false);
+  const [selectedCity, setCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -40,31 +41,43 @@ const LoginForm: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const handleCitySearch = useCallback(async (value: string) => {
+  const handleCitySearch = async (value: string) => {
     if (value) {
       try {
         const cityList = await getCities(value);
         setCities(cityList);
-        setSelectedCity(0);
+        setIsSelectedCity(true);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
     } else {
       setCities([]);
     }
-  }, []);
+  };
+  
 
-  // Fetch streets when city is selected
-  // const handleCityChange = useCallback(async (value: number) => {
-  //   setSelectedCity(value);
-  //   setStreets([]);
-  //   try {
-  //     const streetList = await getStreets(value);
-  //     setStreets(streetList);
-  //   } catch (error) {
-  //     console.error("Error fetching streets:", error);
-  //   }
-  // }, []);
+  const handleCityChange=(selectedCity: string)=>{
+    console.log('selectedCity',selectedCity)
+    setCity(selectedCity)
+  }
+
+  const handleStreetSearch = async (value: string) => {
+    console.log('Selected City:', selectedCity);  
+    if (value && selectedCity) {
+      try {
+        const streetList = await getStreets(value, selectedCity);
+        console.log("Street list returned:", streetList); 
+        setStreets(streetList);
+      } catch (error) {
+        console.error("Error fetching streets:", error);
+      }
+    } else {
+      setStreets([]);
+    }
+  };
+  
+  
+  
 
   const formFields = [
     { label: "שם מלא", name: "fullName", component: <Input />, colSpan: 12 },
@@ -108,12 +121,12 @@ const LoginForm: React.FC = () => {
           showSearch
           placeholder="הקלד שם עיר"
           onSearch={handleCitySearch}
-          // onChange={handleCityChange}
+          onChange={handleCityChange}
           filterOption={false}
           allowClear
         >
           {cities?.map((city) => (
-            <Select.Option key={city.id} value={city.id}>
+            <Select.Option key={city.id} value={city.name}>
               {city.name}
             </Select.Option>
           ))}
@@ -125,12 +138,17 @@ const LoginForm: React.FC = () => {
       label: "רחוב",
       name: "street",
       component: (
-        <Select placeholder="בחר רחוב" disabled={!selectedCity}>
-          {/* {streets?.map((street) => (
+        <Select
+          placeholder="בחר רחוב"
+          disabled={!isSelectedCity}
+          onSearch={handleStreetSearch}
+          showSearch
+        >
+          {streets?.map((street) => (
             <Select.Option key={street.id} value={street.id}>
               {street.name}
             </Select.Option>
-          ))} */}
+          ))}
         </Select>
       ),
       colSpan: 8,
@@ -218,7 +236,6 @@ const LoginForm: React.FC = () => {
             </Col>
           ))}
         </Row>
-        
       </Form>
       <div className="form-checkbox">
         <Checkbox onChange={onChange}>זכור אותי</Checkbox>
