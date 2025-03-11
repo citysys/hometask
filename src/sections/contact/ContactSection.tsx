@@ -1,5 +1,6 @@
 import "./ContactSection.css";
 import logo from "../../assets/logo.png";
+import ContactForm from "../../components/contact-form/ContactForm";
 function ContactSection() {
   return (
     <section className="content-section">
@@ -11,6 +12,7 @@ function ContactSection() {
         </div>
         <p>*שים לב כל השדות הם שדות חובה</p>
       </div>
+      <ContactForm />
     </section>
   );
 }

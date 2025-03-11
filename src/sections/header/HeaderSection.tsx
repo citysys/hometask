@@ -1,8 +1,8 @@
 import "./HeaderSection.css";
 import phone from "../../assets/phone.png";
-function Header() {
+function HeaderSection() {
   return (
-    <header className="header">
+    <header className="header-section">
       <h1>
         רישוי עסקים מהמשרד ומכל מקום <span>אפליקציית שטח למפקח</span>
       </h1>
@@ -13,4 +13,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderSection;
