@@ -1,12 +1,12 @@
 import "./App.css";
-import Header from "./components/header/Header";
+import ContactSection from "./sections/contact/ContactSection";
+import HeaderSection from "./sections/header/HeaderSection";
+
 function App() {
   return (
     <main className="main-layout">
-      <Header />
-      <section className="main-layout_content">
-        <h1>Content and Form</h1>
-      </section>
+      <HeaderSection />
+      <ContactSection />
     </main>
   );
 }

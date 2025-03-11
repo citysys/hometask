@@ -1,0 +1,35 @@
+.content-section {
+  background-color: white;
+  padding: 2rem;
+
+  img {
+    display: block;
+  }
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  & > p {
+    color: var(--error);
+    align-self: flex-end;
+  }
+}
